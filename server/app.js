@@ -79,6 +79,24 @@ app.post('/links',
 /************************************************************/
 // Write your authentication routes here
 /************************************************************/
+app.post('/signup',
+(req, res, next) => {
+  return models.Users.create({
+    username: req.body.username,
+    password: req.body.password
+  })
+  .then(result => {
+    res.status(201).send(result);
+  })
+  .error(error => {
+    res.status(500).send(error);
+  })
+  .catch(user => {
+    res.status(201).send(user);
+  });
+});
+
+
 
 
 

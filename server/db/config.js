@@ -25,6 +25,16 @@ module.exports = (db) => {
           timestamp TIMESTAMP
         );`);
     })
+    .then(() => {
+      // Create users table
+      return db.queryAsync(`
+        CREATE TABLE IF NOT EXISTS users (
+          id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+          username VARCHAR(255) UNIQUE,
+          password VARCHAR(255),
+          timestamp TIMESTAMP
+        );`);
+    })
   /************************************************************/
   /*          Add additional schema queries here              */
   /************************************************************/
