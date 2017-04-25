@@ -154,7 +154,7 @@ describe('', function() {
         'uri': 'http://127.0.0.1:4568/signup',
         'json': {
           'username': 'Samantha',
-          'password': 'SamanthaJ'
+          'password': 'Samantha'
         }
       };
 
@@ -209,7 +209,7 @@ describe('', function() {
     });
   });
 
-  xdescribe('Account Login:', function() {
+  describe('Account Login:', function() {
 
     beforeEach(function(done) {
       var options = {

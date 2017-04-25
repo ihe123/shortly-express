@@ -8,15 +8,23 @@ class Users extends Model {
   constructor() {
     super('users');
   }
-  	
+    
   create(user) {
-  	let shasum = crypto.createHash('sha1');
+    let shasum = crypto.createHash('sha1');
     shasum.update(user.password);
     user.password = shasum.digest('hex');
 
-    console.log (user.password);
     return super.create.call(this, user);
   }
+
+  login(user) {
+    let shasum = crypto.createHash('sha1');
+    shasum.update(user.password);
+    user.password = shasum.digest('hex');
+
+    return super.get.call(this, user);
+  }
+
 }
 
 module.exports = new Users();

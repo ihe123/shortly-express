@@ -79,14 +79,51 @@ app.post('/links',
 /************************************************************/
 // Write your authentication routes here
 /************************************************************/
+
+app.get('/signup', 
+(req, res) => {
+  res.render('signup');
+});
+
+
 app.post('/signup',
 (req, res, next) => {
   return models.Users.create({
     username: req.body.username,
     password: req.body.password
   })
-  .then(result => {
-    res.status(201).send(result);
+  .then(user => {
+    res.redirect('/');
+  })
+  .error(error => {
+    if (error.code === 'ER_DUP_ENTRY') {
+      res.redirect('/signup');
+    } else {
+      res.status(500).send(error);
+    }
+  })
+  .catch(user => {
+    res.status(201).send(user);
+  });
+});
+
+app.get('/login', 
+(req, res) => {
+  res.render('login');
+});
+
+app.post('/login',
+(req, res, next) => {
+  return models.Users.login({
+    username: req.body.username,
+    password: req.body.password
+  })
+  .then(user => {
+    if (user) {
+      res.redirect('/');
+    } else {
+      res.redirect('/login');
+    }
   })
   .error(error => {
     res.status(500).send(error);
@@ -95,6 +132,7 @@ app.post('/signup',
     res.status(201).send(user);
   });
 });
+
 
 
 
